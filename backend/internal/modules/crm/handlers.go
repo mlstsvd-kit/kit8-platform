@@ -116,7 +116,7 @@ func (ctrl *Controller) UpdateContact(c *fiber.Ctx) error {
 // DeleteContact удаляет контакт
 func (ctrl *Controller) DeleteContact(c *fiber.Ctx) error {
 	// Получаем ID контакта из параметров URL
-	id, err := strconv.Atoi(c.Params("id"))
+	contactID, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid contact ID"})
 	}
@@ -201,7 +201,7 @@ func (ctrl *Controller) UpdateDeal(c *fiber.Ctx) error {
 // DeleteDeal удаляет сделку
 func (ctrl *Controller) DeleteDeal(c *fiber.Ctx) error {
 	// Получаем ID сделки из параметров URL
-	id, err := strconv.Atoi(c.Params("id"))
+	dealID, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid deal ID"})
 	}

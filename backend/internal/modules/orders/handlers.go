@@ -145,7 +145,7 @@ func (ctrl *Controller) UpdateOrder(c *fiber.Ctx) error {
 // DeleteOrder удаляет заказ
 func (ctrl *Controller) DeleteOrder(c *fiber.Ctx) error {
 	// Получаем ID заказа из параметров URL
-	id, err := strconv.Atoi(c.Params("id"))
+	orderID, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid order ID"})
 	}

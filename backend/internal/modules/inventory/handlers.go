@@ -109,7 +109,7 @@ func (ctrl *Controller) UpdateProduct(c *fiber.Ctx) error {
 // DeleteProduct удаляет товар
 func (ctrl *Controller) DeleteProduct(c *fiber.Ctx) error {
 	// Получаем ID товара из параметров URL
-	id, err := strconv.Atoi(c.Params("id"))
+	productID, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid product ID"})
 	}
