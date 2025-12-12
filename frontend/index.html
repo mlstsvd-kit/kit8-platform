@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIT8 Platform</title>
+ <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5;
+    }
+    .main-menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 50vh;
+    }
+    .menu-item {
+      display: block;
+      margin: 10px 0;
+      padding: 15px 30px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+    .menu-item:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+ <div class="main-menu">
+    <h1>Добро пожаловать в KIT8 Platform</h1>
+    <a href="/deals.html" class="menu-item">Модуль Сделок</a>
+    <a href="/inventory.html" class="menu-item">Модуль Склада</a>
+    <a href="/orders.html" class="menu-item">Модуль Заказов</a>
+    <a href="/cashier.html" class="menu-item">Модуль Кассы</a>
+  </div>
+</body>
+</html>

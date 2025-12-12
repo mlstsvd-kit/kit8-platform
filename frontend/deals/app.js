@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stage = document.getElementById('deal-stage').value;
     
     try {
-      const newDeal = await apiClient.post('/deals/', {
+      const newDeal = await apiClient.post('/crm/deals/', {
         title,
         contact_id: parseInt(contactId),
         value: parseFloat(value),
@@ -84,7 +84,25 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Функция добавления сделки на доску
   function addDealToBoard(deal) {
-    const stageContainer = document.querySelector(`#deals-${deal.stage} .deals-list`);
+    let stageId;
+    switch(deal.stage) {
+      case 'new':
+        stageId = 'deals-new';
+        break;
+      case 'in-progress':
+        stageId = 'deals-in-progress';
+        break;
+      case 'won':
+        stageId = 'deals-won';
+        break;
+      case 'lost':
+        stageId = 'deals-lost';
+        break;
+      default:
+        stageId = `deals-${deal.stage}`;
+    }
+    
+    const stageContainer = document.querySelector(`#${stageId}`);
     if (!stageContainer) return;
     
     const dealCard = createDealCard(deal);
@@ -124,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Функция загрузки и отображения всех сделок
   async function loadDeals() {
     try {
-      const deals = await apiClient.get('/deals/');
+      const deals = await apiClient.get('/crm/deals');
       
       // Очищаем все доски
       document.querySelectorAll('.deals-list').forEach(list => {
