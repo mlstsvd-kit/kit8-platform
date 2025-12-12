@@ -115,14 +115,14 @@ func (ctrl *Controller) UpdateContact(c *fiber.Ctx) error {
 
 // DeleteContact удаляет контакт
 func (ctrl *Controller) DeleteContact(c *fiber.Ctx) error {
-	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
-	
 	// Получаем ID контакта из параметров URL
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid contact ID"})
 	}
+
+	// Получаем ID компании из контекста
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для удаления контакта из базы данных с проверкой, 
@@ -200,14 +200,14 @@ func (ctrl *Controller) UpdateDeal(c *fiber.Ctx) error {
 
 // DeleteDeal удаляет сделку
 func (ctrl *Controller) DeleteDeal(c *fiber.Ctx) error {
-	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
-	
 	// Получаем ID сделки из параметров URL
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid deal ID"})
 	}
+
+	// Получаем ID компании из контекста
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для удаления сделки из базы данных с проверкой, 
@@ -220,7 +220,7 @@ func (ctrl *Controller) DeleteDeal(c *fiber.Ctx) error {
 // GetDealStats возвращает статистику по сделкам
 func (ctrl *Controller) GetDealStats(c *fiber.Ctx) error {
 	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для получения статистики из базы данных с фильтрацией по customerID

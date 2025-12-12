@@ -154,18 +154,18 @@ func (ctrl *Controller) ProcessPayment(c *fiber.Ctx) error {
 
 // RefundPayment возвращает средства
 func (ctrl *Controller) RefundPayment(c *fiber.Ctx) error {
-	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
-	
 	// Получаем ID платежа из параметров URL
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid payment ID"})
 	}
+
+	// Получаем ID компании из контекста
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для обработки возврата средств через платежный шлюз
-	// с проверкой, принадлежит ли платеж текущей компании (customerID)
+	// с проверкой, принадлежит ли платеж текущей компании
 	
 	// Возвращаем результат возврата
 	return c.JSON(fiber.Map{
@@ -177,13 +177,13 @@ func (ctrl *Controller) RefundPayment(c *fiber.Ctx) error {
 // GetCashierStats возвращает статистику по кассе
 func (ctrl *Controller) GetCashierStats(c *fiber.Ctx) error {
 	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для получения статистики из базы данных с фильтрацией по customerID
 	stats := CashierStats{
 		TotalRevenue:     125000.0,
-		TodaysRevenue:    15000.0,
+		TodaysRevenue:    1500.0,
 		TotalTransactions: 50,
 		TodaysTransactions: 5,
 		RefundAmount:     2500.0,

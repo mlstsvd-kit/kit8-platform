@@ -108,14 +108,14 @@ func (ctrl *Controller) UpdateProduct(c *fiber.Ctx) error {
 
 // DeleteProduct удаляет товар
 func (ctrl *Controller) DeleteProduct(c *fiber.Ctx) error {
-	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
-	
 	// Получаем ID товара из параметров URL
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid product ID"})
 	}
+
+	// Получаем ID компании из контекста
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для удаления товара из базы данных с проверкой, 
@@ -152,7 +152,7 @@ func (ctrl *Controller) GetProduct(c *fiber.Ctx) error {
 // GetInventoryStats возвращает статистику по складу
 func (ctrl *Controller) GetInventoryStats(c *fiber.Ctx) error {
 	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для получения статистики из базы данных с фильтрацией по customerID

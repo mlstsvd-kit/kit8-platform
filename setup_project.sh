@@ -40,7 +40,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 # Клонирование репозитория
 echo "Клонирование репозитория..."
-git clone https://github.com/vash-proekt/kit8-platform.git
+git clone https://github.com/mlstsvd-kit/kit8-platform.git
 cd kit8-platform
 
 # Установка зависимостей для Go

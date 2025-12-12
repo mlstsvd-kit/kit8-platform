@@ -102,7 +102,7 @@ func (ctrl *Controller) CreateOrder(c *fiber.Ctx) error {
 	// Вычисляем общую сумму заказа
 	total := 0.0
 	for i := range order.Items {
-		order.Items[i].Total = order.Items[i].Quantity * order.Items[i].Price
+		order.Items[i].Total = float64(order.Items[i].Quantity) * order.Items[i].Price
 		total += order.Items[i].Total
 	}
 	order.TotalAmount = total
@@ -144,14 +144,14 @@ func (ctrl *Controller) UpdateOrder(c *fiber.Ctx) error {
 
 // DeleteOrder удаляет заказ
 func (ctrl *Controller) DeleteOrder(c *fiber.Ctx) error {
-	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
-	
 	// Получаем ID заказа из параметров URL
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid order ID"})
 	}
+
+	// Получаем ID компании из контекста
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для удаления заказа из базы данных с проверкой, 
@@ -192,7 +192,7 @@ func (ctrl *Controller) GetOrder(c *fiber.Ctx) error {
 // GetOrderStats возвращает статистику по заказам
 func (ctrl *Controller) GetOrderStats(c *fiber.Ctx) error {
 	// Получаем ID компании из контекста
-	customerID := c.Locals("customer_id").(int)
+	_ = c.Locals("customer_id").(int)
 	
 	// В реальном приложении здесь будет вызов сервисного слоя
 	// для получения статистики из базы данных с фильтрацией по customerID
