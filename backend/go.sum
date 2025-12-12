@@ -1,0 +1,4 @@
+github.com/gofiber/fiber/v2 v2.52.2 h1:5bDcJT4hz0696ylOYQqJNLYOG7uUfCt8g6W9t5t98c4=
+github.com/valyala/bytebufferpool v1.0.0 h1:GqA5S9dR7epznH+rfQqJNLYOG7uUfCt8g6W9t5t98c4=
+github.com/valyala/fasthttp v1.54.0 h1:5GmKUO5DRiVWxG5+qL8Xra9NRjW/rZJ2/95Qn5ZkZ1Y=
+github.com/valyala/tcplisten v1.0.0 h1:oe0j5mXBQV2qQlZQKEcxQ+5p2HhjJ4nnkN2XO38QsP4=
