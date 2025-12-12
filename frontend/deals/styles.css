@@ -1,0 +1,167 @@
+/* Стили для модуля Сделок */
+
+.deals-main {
+  padding: 2rem 0;
+}
+
+.deals-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex-grow: 1;
+  max-width: 300px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.deals-board {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+ padding-bottom: 1rem;
+}
+
+.deal-stage {
+  min-width: 250px;
+  flex: 1;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.deal-stage h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #1e3a8a;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.deals-list {
+  min-height: 200px;
+}
+
+.deal-card {
+ background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.deal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.deal-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: #1e293b;
+}
+
+.deal-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.deal-value {
+  font-weight: bold;
+  color: #1e3a8a;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+/* Стили для модального окна */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 2rem;
+  border: none;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color: #F97316; /* Оранжевый акцент */
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #ea580c;
+}
+
+@media (max-width: 768px) {
+  .deals-board {
+    flex-direction: column;
+  }
+  
+  .deals-controls {
+    flex-direction: column;
+  }
+  
+  .search-input {
+    max-width: 100%;
+  }
+}
