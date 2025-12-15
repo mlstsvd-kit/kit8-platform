@@ -1,47 +1,222 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KIT8 Platform</title>
- <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f5f5;
-    }
-    .main-menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 50vh;
-    }
-    .menu-item {
-      display: block;
-      margin: 10px 0;
-      padding: 15px 30px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 18px;
-      transition: background-color 0.3s;
-    }
-    .menu-item:hover {
-      background-color: #0056b3;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIT8 Platform 🐋</title>
+    <link rel="stylesheet" href="/shared/styles.css">
 </head>
 <body>
- <div class="main-menu">
-     <h1>Добро пожаловать в KIT8 Platform</h1>
-     <a href="/crm.html" class="menu-item">CRM Модуль</a>
-     <a href="/deals.html" class="menu-item">Модуль Сделок</a>
-     <a href="/inventory.html" class="menu-item">Модуль Склада</a>
-     <a href="/orders.html" class="menu-item">Модуль Заказов</a>
-     <a href="/cashier.html" class="menu-item">Модуль Кассы</a>
-   </div>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🐋</div>
+                <div class="logo-text">
+                    <h1>KIT8 Platform</h1>
+                    <div class="tagline">Блочная сила вашего бизнеса</div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="modules-count">5</div>
+                    <div class="stat-label">Модулей</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="active-users">0</div>
+                    <div class="stat-label">Пользователей</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="server-status">🟢</div>
+                    <div class="stat-label">Система</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="contacts-section">
+                <div class="section-header">
+                    <h2>Основные модули</h2>
+                    <button class="btn" onclick="location.reload()">
+                        🔄 Обновить
+                    </button>
+                </div>
+
+                <div class="main-menu" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 20px;">
+                    <a href="/crm.html" class="menu-item" style="
+                        display: block;
+                        padding: 30px;
+                        background: rgba(255, 255, 255, 0.95);
+                        border-radius: 15px;
+                        text-decoration: none;
+                        color: #1F2937;
+                        transition: all 0.3s;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        text-align: center;
+                    ">
+                        <div style="
+                            font-size: 3rem;
+                            margin-bottom: 15px;
+                        ">👥</div>
+                        <h3 style="
+                            font-size: 1.5rem;
+                            margin: 10px 0;
+                            color: #1E3A8A;
+                        ">CRM Модуль</h3>
+                        <p style="
+                            color: #6B7280;
+                            margin: 0;
+                        ">Управление контактами и взаимоотношениями</p>
+                    </a>
+
+                    <a href="/deals.html" class="menu-item" style="
+                        display: block;
+                        padding: 30px;
+                        background: rgba(255, 255, 255, 0.95);
+                        border-radius: 15px;
+                        text-decoration: none;
+                        color: #1F2937;
+                        transition: all 0.3s;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        text-align: center;
+                    ">
+                        <div style="
+                            font-size: 3rem;
+                            margin-bottom: 15px;
+                        ">💼</div>
+                        <h3 style="
+                            font-size: 1.5rem;
+                            margin: 10px 0;
+                            color: #1E3A8A;
+                        ">Модуль Сделок</h3>
+                        <p style="
+                            color: #6B7280;
+                            margin: 0;
+                        ">Отслеживание и управление сделками</p>
+                    </a>
+
+                    <a href="/inventory.html" class="menu-item" style="
+                        display: block;
+                        padding: 30px;
+                        background: rgba(255, 255, 255, 0.95);
+                        border-radius: 15px;
+                        text-decoration: none;
+                        color: #1F2937;
+                        transition: all 0.3s;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        text-align: center;
+                    ">
+                        <div style="
+                            font-size: 3rem;
+                            margin-bottom: 15px;
+                        ">📦</div>
+                        <h3 style="
+                            font-size: 1.5rem;
+                            margin: 10px 0;
+                            color: #1E3A8A;
+                        ">Модуль Склада</h3>
+                        <p style="
+                            color: #6B7280;
+                            margin: 0;
+                        ">Управление запасами и товарами</p>
+                    </a>
+
+                    <a href="/orders.html" class="menu-item" style="
+                        display: block;
+                        padding: 30px;
+                        background: rgba(255, 255, 255, 0.95);
+                        border-radius: 15px;
+                        text-decoration: none;
+                        color: #1F2937;
+                        transition: all 0.3s;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                        border: 1px solid rgba(25, 255, 255, 0.2);
+                        text-align: center;
+                    ">
+                        <div style="
+                            font-size: 3rem;
+                            margin-bottom: 15px;
+                        ">🛒</div>
+                        <h3 style="
+                            font-size: 1.5rem;
+                            margin: 10px 0;
+                            color: #1E3A8A;
+                        ">Модуль Заказов</h3>
+                        <p style="
+                            color: #6B7280;
+                            margin: 0;
+                        ">Обработка и отслеживание заказов</p>
+                    </a>
+
+                    <a href="/cashier.html" class="menu-item" style="
+                        display: block;
+                        padding: 30px;
+                        background: rgba(255, 255, 255, 0.95);
+                        border-radius: 15px;
+                        text-decoration: none;
+                        color: #1F2937;
+                        transition: all 0.3s;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                        border: 1px solid rgba(25, 255, 255, 0.2);
+                        text-align: center;
+                    ">
+                        <div style="
+                            font-size: 3rem;
+                            margin-bottom: 15px;
+                        ">💳</div>
+                        <h3 style="
+                            font-size: 1.5rem;
+                            margin: 10px 0;
+                            color: #1E3A8A;
+                        ">Модуль Кассы</h3>
+                        <p style="
+                            color: #6B7280;
+                            margin: 0;
+                        ">Обработка платежей и транзакций</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="add-contact-form">
+                    <h3 class="form-title">Информация о системе</h3>
+                    <p style="color: #6B7280; font-size: 0.9rem; line-height: 1.5;">
+                        KIT8 Platform - это комплексное решение для управления бизнесом.
+                        Все модули интегрированы и работают в единой системе.
+                    </p>
+                    <div style="margin-top: 15px; padding: 10px; background: #F3F4F6; border-radius: 8px;">
+                        <div style="font-size: 0.8rem; color: #6B7280; margin-bottom: 5px;">Версия:</div>
+                        <div style="font-family: monospace; font-size: 0.75rem; color: #3B82F6;">
+                            MVP 0.1.0
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px; padding: 15px; background: #FEF3C7; border-radius: 8px; border-left: 4px solid #F59E0B;">
+                        <div style="font-size: 0.9rem; font-weight: 600; color: #92400E; margin-bottom: 5px;">Совет:</div>
+                        <div style="font-size: 0.85rem; color: #9D3C0E;">
+                            Начните с модуля CRM для добавления контактов, затем переходите к сделкам и другим модулям.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2024 KIT8 Platform | Компания Информационных Технологий
+        </div>
+    </div>
+
+    <script>
+        // Обновляем статистику при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('KIT8 Platform загружена');
+            
+            // Заглушка для обновления статистики
+            document.getElementById('active-users').textContent = '0';
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIT8 - Склад</title>
+    <link rel="stylesheet" href="/shared/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🐋</div>
+                <div class="logo-text">
+                    <h1>KIT8 Склад</h1>
+                    <div class="tagline">Управление запасами и товарами</div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="products-count">0</div>
+                    <div class="stat-label">Товаров</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="low-stock-count">0</div>
+                    <div class="stat-label">Низкий запас</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-value">0</div>
+                    <div class="stat-label">Общая стоимость</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <div class="contacts-section">
+                <div class="section-header">
+                    <h2>Товары на складе</h2>
+                    <div>
+                        <a href="/deals.html" class="btn" style="background: #8B5CF6; margin-right: 10px;">
+                            📊 Перейти к сделкам
+                        </a>
+                        <button class="btn" id="refresh-products">
+                            🔄 Обновить
+                        </button>
+                    </div>
+                </div>
+
+                <div id="products-container">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Загрузка товаров...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сайдбар -->
+            <div class="sidebar">
+                <!-- Форма добавления товара -->
+                <div class="add-contact-form">
+                    <h3 class="form-title">Новый товар</h3>
+
+                    <div id="product-message"></div>
+
+                    <div class="form-group">
+                        <label for="product-name">Название *</label>
+                        <input type="text" id="product-name" class="form-input" placeholder="Название товара" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-category">Категория</label>
+                        <input type="text" id="product-category" class="form-input" placeholder="Категория товара">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-price">Цена</label>
+                        <input type="number" id="product-price" class="form-input" placeholder="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-quantity">Количество</label>
+                        <input type="number" id="product-quantity" class="form-input" placeholder="10">
+                    </div>
+
+                    <button class="btn btn-success" id="add-product-btn">
+                        ➕ Добавить товар
+                    </button>
+                </div>
+
+                <!-- Информация -->
+                <div class="add-contact-form">
+                    <h3 class="form-title">Информация</h3>
+                    <p style="color: #6B7280; font-size: 0.9rem; line-height: 1.5;">
+                        Модуль управления складом позволяет отслеживать запасы и управлять товарами.
+                    </p>
+                    <div style="margin-top: 15px; padding: 10px; background: #F3F4F6; border-radius: 8px;">
+                        <div style="font-size: 0.8rem; color: #6B7280; margin-bottom: 5px;">API Endpoints:</div>
+                        <div style="font-family: monospace; font-size: 0.75rem; color: #3B82F6;">
+                            GET /api/inventory/products<br>
+                            POST /api/inventory/products<br>
+                            GET /api/inventory/stats
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2024 KIT8 Platform | Компания Информационных Технологий
+        </div>
+    </div>
+
+    <script type="module">
+        import apiClient from '/shared/api.js';
+        window.apiClient = apiClient;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Заглушка для обновления товаров
+            document.getElementById('refresh-products').addEventListener('click', () => {
+                loadProducts();
+            });
+
+            // Заглушка для добавления товара
+            document.getElementById('add-product-btn').addEventListener('click', () => {
+                addProduct();
+            });
+
+            // Инициализация
+            loadProducts();
+            loadStats();
+        });
+
+        async function loadProducts() {
+            const container = document.getElementById('products-container');
+            container.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Загрузка товаров...</p>
+                </div>
+            `;
+
+            // Заглушка - в реальности будет вызов API
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="loading">
+                        <p>Товаров пока нет</p>
+                        <p style="font-size: 0.9rem; color: #6B7280; margin-top: 10px;">
+                            Добавьте первый товар через форму справа
+                        </p>
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        async function loadStats() {
+            // Заглушка для статистики
+            document.getElementById('products-count').textContent = '0';
+            document.getElementById('low-stock-count').textContent = '0';
+            document.getElementById('total-value').textContent = '0 ₽';
+        }
+
+        async function addProduct() {
+            const name = document.getElementById('product-name').value;
+            const price = document.getElementById('product-price').value;
+
+            if (!name) {
+                showMessage('Введите название товара', 'error', 'product-message');
+                return;
+            }
+
+            // Заглушка для добавления товара
+            const btn = document.getElementById('add-product-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>⏳</span> Добавляем...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                showMessage('Товар успешно добавлен!', 'success', 'product-message');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Очищаем форму
+                document.getElementById('product-name').value = '';
+                document.getElementById('product-category').value = '';
+                document.getElementById('product-price').value = '';
+                document.getElementById('product-quantity').value = '';
+                
+                // Обновляем список
+                loadProducts();
+                loadStats();
+            }, 150);
+        }
+
+        function showMessage(text, type, containerId) {
+            const container = document.getElementById(containerId);
+            const className = type === 'error' ? 'error' : 'success';
+            container.innerHTML = `<div class="${className}">${text}</div>`;
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

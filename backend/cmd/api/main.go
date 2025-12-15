@@ -27,6 +27,14 @@ func main() {
 	ordersController := orders.NewController()
 	cashierController := cashier.NewController()
 
+	// Основные маршруты
+	app.Get("/health", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"status":  "ok",
+			"version": "1.0.0",
+		})
+	})
+
 	// Маршруты API
 	api := app.Group("/api")
 
@@ -41,6 +49,7 @@ func main() {
 	crmRoutes.Put("/deals/:id", crmController.UpdateDeal)
 	crmRoutes.Delete("/deals/:id", crmController.DeleteDeal)
 	crmRoutes.Get("/deals/stats", crmController.GetDealStats)
+	crmRoutes.Get("/stats", crmController.GetCRMStats)
 
 	// Inventory маршруты
 	inventoryRoutes := api.Group("/inventory")
@@ -50,6 +59,11 @@ func main() {
 	inventoryRoutes.Delete("/products/:id", inventoryController.DeleteProduct)
 	inventoryRoutes.Get("/products/:id", inventoryController.GetProduct)
 	inventoryRoutes.Get("/stats", inventoryController.GetInventoryStats)
+	inventoryRoutes.Get("/products", inventoryController.GetProducts)
+	inventoryRoutes.Post("/products", inventoryController.CreateProduct)
+	inventoryRoutes.Put("/products/:id", inventoryController.UpdateProduct)
+	inventoryRoutes.Delete("/products/:id", inventoryController.DeleteProduct)
+	inventoryRoutes.Get("/products/:id", inventoryController.GetProduct)
 
 	// Orders маршруты
 	ordersRoutes := api.Group("/orders")
@@ -59,6 +73,11 @@ func main() {
 	ordersRoutes.Delete("/orders/:id", ordersController.DeleteOrder)
 	ordersRoutes.Get("/orders/:id", ordersController.GetOrder)
 	ordersRoutes.Get("/stats", ordersController.GetOrderStats)
+	ordersRoutes.Get("/orders", ordersController.GetOrders)
+	ordersRoutes.Post("/orders", ordersController.CreateOrder)
+	ordersRoutes.Put("/orders/:id", ordersController.UpdateOrder)
+	ordersRoutes.Delete("/orders/:id", ordersController.DeleteOrder)
+	ordersRoutes.Get("/orders/:id", ordersController.GetOrder)
 
 	// Cashier маршруты
 	cashierRoutes := api.Group("/cashier")
@@ -68,6 +87,11 @@ func main() {
 	cashierRoutes.Post("/process", cashierController.ProcessPayment)
 	cashierRoutes.Post("/refund/:id", cashierController.RefundPayment)
 	cashierRoutes.Get("/stats", cashierController.GetCashierStats)
+	cashierRoutes.Get("/payments", cashierController.GetPayments)
+	cashierRoutes.Post("/payments", cashierController.CreatePayment)
+	cashierRoutes.Put("/payments/:id", cashierController.UpdatePayment)
+	cashierRoutes.Post("/process", cashierController.ProcessPayment)
+	cashierRoutes.Post("/refund/:id", cashierController.RefundPayment)
 
 	log.Fatal(app.Listen(":3000"))
 }

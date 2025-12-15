@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIT8 - Заказы</title>
+    <link rel="stylesheet" href="/shared/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🐋</div>
+                <div class="logo-text">
+                    <h1>KIT8 Заказы</h1>
+                    <div class="tagline">Управление заказами и клиентскими запросами</div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="orders-count">0</div>
+                    <div class="stat-label">Заказов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="pending-count">0</div>
+                    <div class="stat-label">В обработке</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="completed-count">0</div>
+                    <div class="stat-label">Выполнено</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <div class="contacts-section">
+                <div class="section-header">
+                    <h2>Заказы</h2>
+                    <div>
+                        <a href="/deals.html" class="btn" style="background: #8B5CF6; margin-right: 10px;">
+                            📊 Перейти к сделкам
+                        </a>
+                        <button class="btn" id="refresh-orders">
+                            🔄 Обновить
+                        </button>
+                    </div>
+                </div>
+
+                <div id="orders-container">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Загрузка заказов...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сайдбар -->
+            <div class="sidebar">
+                <!-- Форма создания заказа -->
+                <div class="add-contact-form">
+                    <h3 class="form-title">Новый заказ</h3>
+
+                    <div id="order-message"></div>
+
+                    <div class="form-group">
+                        <label for="order-customer">Клиент *</label>
+                        <input type="text" id="order-customer" class="form-input" placeholder="Имя клиента" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="order-product">Товар/Услуга</label>
+                        <input type="text" id="order-product" class="form-input" placeholder="Название товара">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="order-amount">Сумма</label>
+                        <input type="number" id="order-amount" class="form-input" placeholder="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="order-status">Статус</label>
+                        <select id="order-status" class="form-input">
+                            <option value="new">Новый</option>
+                            <option value="processing">В обработке</option>
+                            <option value="shipped">Отправлен</option>
+                            <option value="delivered">Доставлен</option>
+                            <option value="completed">Выполнен</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-success" id="create-order-btn">
+                        📦 Создать заказ
+                    </button>
+                </div>
+
+                <!-- Информация -->
+                <div class="add-contact-form">
+                    <h3 class="form-title">Информация</h3>
+                    <p style="color: #6B7280; font-size: 0.9rem; line-height: 1.5;">
+                        Модуль управления заказами позволяет отслеживать весь цикл выполнения заказов.
+                    </p>
+                    <div style="margin-top: 15px; padding: 10px; background: #F3F4F6; border-radius: 8px;">
+                        <div style="font-size: 0.8rem; color: #6B7280; margin-bottom: 5px;">API Endpoints:</div>
+                        <div style="font-family: monospace; font-size: 0.75rem; color: #3B82F6;">
+                            GET /api/orders/orders<br>
+                            POST /api/orders/orders<br>
+                            GET /api/orders/stats
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2024 KIT8 Platform | Компания Информационных Технологий
+        </div>
+    </div>
+
+    <script type="module">
+        import apiClient from '/shared/api.js';
+        window.apiClient = apiClient;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Заглушка для обновления заказов
+            document.getElementById('refresh-orders').addEventListener('click', () => {
+                loadOrders();
+            });
+
+            // Заглушка для создания заказа
+            document.getElementById('create-order-btn').addEventListener('click', () => {
+                createOrder();
+            });
+
+            // Инициализация
+            loadOrders();
+            loadStats();
+        });
+
+        async function loadOrders() {
+            const container = document.getElementById('orders-container');
+            container.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Загрузка заказов...</p>
+                </div>
+            `;
+
+            // Заглушка - в реальности будет вызов API
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="loading">
+                        <p>Заказов пока нет</p>
+                        <p style="font-size: 0.9rem; color: #6B7280; margin-top: 10px;">
+                            Создайте первый заказ через форму справа
+                        </p>
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        async function loadStats() {
+            // Заглушка для статистики
+            document.getElementById('orders-count').textContent = '0';
+            document.getElementById('pending-count').textContent = '0';
+            document.getElementById('completed-count').textContent = '0';
+        }
+
+        async function createOrder() {
+            const customer = document.getElementById('order-customer').value;
+            const product = document.getElementById('order-product').value;
+            const amount = document.getElementById('order-amount').value;
+
+            if (!customer) {
+                showMessage('Введите имя клиента', 'error', 'order-message');
+                return;
+            }
+
+            // Заглушка для создания заказа
+            const btn = document.getElementById('create-order-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>⏳</span> Создаем...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                showMessage('Заказ успешно создан!', 'success', 'order-message');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Очищаем форму
+                document.getElementById('order-customer').value = '';
+                document.getElementById('order-product').value = '';
+                document.getElementById('order-amount').value = '';
+                
+                // Обновляем список
+                loadOrders();
+                loadStats();
+            }, 1500);
+        }
+
+        function showMessage(text, type, containerId) {
+            const container = document.getElementById(containerId);
+            const className = type === 'error' ? 'error' : 'success';
+            container.innerHTML = `<div class="${className}">${text}</div>`;
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

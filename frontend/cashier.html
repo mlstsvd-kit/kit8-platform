@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIT8 - Касса</title>
+    <link rel="stylesheet" href="/shared/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🐋</div>
+                <div class="logo-text">
+                    <h1>KIT8 Касса</h1>
+                    <div class="tagline">Управление платежами и транзакциями</div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="payments-count">0</div>
+                    <div class="stat-label">Платежей</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="revenue-count">0</div>
+                    <div class="stat-label">Выручка</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="today-orders">0</div>
+                    <div class="stat-label">Сегодня</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <div class="contacts-section">
+                <div class="section-header">
+                    <h2>Платежи</h2>
+                    <div>
+                        <a href="/deals.html" class="btn" style="background: #8B5CF6; margin-right: 10px;">
+                            📊 Перейти к сделкам
+                        </a>
+                        <button class="btn" id="refresh-payments">
+                            🔄 Обновить
+                        </button>
+                    </div>
+                </div>
+
+                <div id="payments-container">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Загрузка платежей...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сайдбар -->
+            <div class="sidebar">
+                <!-- Форма обработки платежа -->
+                <div class="add-contact-form">
+                    <h3 class="form-title">Новый платеж</h3>
+
+                    <div id="payment-message"></div>
+
+                    <div class="form-group">
+                        <label for="payment-amount">Сумма *</label>
+                        <input type="number" id="payment-amount" class="form-input" placeholder="1000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payment-method">Метод оплаты</label>
+                        <select id="payment-method" class="form-input">
+                            <option value="cash">Наличные</option>
+                            <option value="card">Карта</option>
+                            <option value="transfer">Перевод</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payment-description">Описание</label>
+                        <input type="text" id="payment-description" class="form-input" placeholder="Оплата заказа">
+                    </div>
+
+                    <button class="btn btn-success" id="process-payment-btn">
+                        💳 Обработать платеж
+                    </button>
+                </div>
+
+                <!-- Информация -->
+                <div class="add-contact-form">
+                    <h3 class="form-title">Информация</h3>
+                    <p style="color: #6B7280; font-size: 0.9rem; line-height: 1.5;">
+                        Модуль кассы позволяет обрабатывать платежи и отслеживать транзакции.
+                    </p>
+                    <div style="margin-top: 15px; padding: 10px; background: #F3F4F6; border-radius: 8px;">
+                        <div style="font-size: 0.8rem; color: #6B7280; margin-bottom: 5px;">API Endpoints:</div>
+                        <div style="font-family: monospace; font-size: 0.75rem; color: #3B82F6;">
+                            GET /api/cashier/payments<br>
+                            POST /api/cashier/process<br>
+                            GET /api/cashier/stats
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2024 KIT8 Platform | Компания Информационных Технологий
+        </div>
+    </div>
+
+    <script type="module">
+        import apiClient from '/shared/api.js';
+        window.apiClient = apiClient;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Заглушка для обновления платежей
+            document.getElementById('refresh-payments').addEventListener('click', () => {
+                loadPayments();
+            });
+
+            // Заглушка для обработки платежа
+            document.getElementById('process-payment-btn').addEventListener('click', () => {
+                processPayment();
+            });
+
+            // Инициализация
+            loadPayments();
+            loadStats();
+        });
+
+        async function loadPayments() {
+            const container = document.getElementById('payments-container');
+            container.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Загрузка платежей...</p>
+                </div>
+            `;
+
+            // Заглушка - в реальности будет вызов API
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="loading">
+                        <p>Платежей пока нет</p>
+                        <p style="font-size: 0.9rem; color: #6B7280; margin-top: 10px;">
+                            Обработайте первый платеж через форму справа
+                        </p>
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        async function loadStats() {
+            // Заглушка для статистики
+            document.getElementById('payments-count').textContent = '0';
+            document.getElementById('revenue-count').textContent = '0 ₽';
+            document.getElementById('today-orders').textContent = '0';
+        }
+
+        async function processPayment() {
+            const amount = document.getElementById('payment-amount').value;
+            const method = document.getElementById('payment-method').value;
+            const description = document.getElementById('payment-description').value;
+
+            if (!amount) {
+                showMessage('Введите сумму платежа', 'error', 'payment-message');
+                return;
+            }
+
+            // Заглушка для обработки платежа
+            const btn = document.getElementById('process-payment-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span>⏳</span> Обрабатываем...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                showMessage('Платеж успешно обработан!', 'success', 'payment-message');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Очищаем форму
+                document.getElementById('payment-amount').value = '';
+                document.getElementById('payment-description').value = '';
+                
+                // Обновляем список
+                loadPayments();
+                loadStats();
+            }, 1500);
+        }
+
+        function showMessage(text, type, containerId) {
+            const container = document.getElementById(containerId);
+            const className = type === 'error' ? 'error' : 'success';
+            container.innerHTML = `<div class="${className}">${text}</div>`;
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

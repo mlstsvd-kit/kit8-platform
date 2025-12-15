@@ -206,10 +206,19 @@
         </div>
     </div>
 
-    <!-- Подключаем API модуль -->
-    <script src="/shared/api.js"></script>
-    <!-- Подключаем основную логику CRM -->
-    <script src="/crm/app.js"></script>
+    <!-- Подключаем API модуль как ES6 модуль -->
+    <script type="module">
+        import apiClient from '/shared/api.js';
+        window.apiClient = apiClient;
+        
+        // Ждем загрузки API клиента, затем загружаем основную логику
+        document.addEventListener('DOMContentLoaded', () => {
+            // Импортируем и инициализируем CRM приложение
+            const script = document.createElement('script');
+            script.src = '/crm/app.js';
+            document.head.appendChild(script);
+        });
+    </script>
 
     <script>
         // Привязка событий для модального окна

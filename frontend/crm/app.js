@@ -2,7 +2,11 @@
 
 class KIT8CRM {
     constructor() {
-        this.api = window.KIT8API;
+        // Загружаем API клиент как модуль
+        this.api = window.apiClient || null;
+        if (!this.api) {
+            console.error('API client not found. Please ensure shared/api.js is loaded.');
+        }
         this.currentContacts = [];
         this.init();
     }

@@ -121,6 +121,70 @@ class KIT8API {
     
     return data;
   }
+
+  // Методы для CRM
+  async getContacts() {
+    return this.get('/crm/contacts');
+  }
+
+  async createContact(contactData) {
+    return this.post('/crm/contacts', contactData);
+  }
+
+  async updateContact(id, contactData) {
+    return this.put(`/crm/contacts/${id}`, contactData);
+  }
+
+  async deleteContact(id) {
+    return this.delete(`/crm/contacts/${id}`);
+ }
+
+  async getContactDeals(contactId) {
+    return this.get(`/crm/contacts/${contactId}/deals`);
+  }
+
+  async getCRMStats() {
+    return this.get('/crm/stats');
+  }
+
+  // Методы для сделок
+  async getDeals() {
+    return this.get('/crm/deals');
+  }
+
+  async createDeal(dealData) {
+    return this.post('/crm/deals', dealData);
+  }
+
+  async updateDeal(id, dealData) {
+    return this.put(`/crm/deals/${id}`, dealData);
+  }
+
+  async deleteDeal(id) {
+    return this.delete(`/crm/deals/${id}`);
+  }
+
+  async getDealStats() {
+    return this.get('/crm/deals/stats');
+  }
+
+  // Методы для других модулей
+  async getInventoryStats() {
+    return this.get('/inventory/stats');
+  }
+
+  async getOrderStats() {
+    return this.get('/orders/stats');
+  }
+
+  async getCashierStats() {
+    return this.get('/cashier/stats');
+  }
+
+  // Platform методы
+  async getPlatformStatus() {
+    return this.get('/health');
+  }
 }
 
 // Экспортируем экземпляр API клиента
