@@ -6,12 +6,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	
+
 	// Импортируем наши модули
+	cashier "kit8-backend/internal/modules/cashier"
 	crm "kit8-backend/internal/modules/crm"
 	inventory "kit8-backend/internal/modules/inventory"
 	orders "kit8-backend/internal/modules/orders"
-	cashier "kit8-backend/internal/modules/cashier"
 )
 
 func main() {
@@ -68,6 +68,22 @@ func main() {
 	cashierRoutes.Post("/process", cashierController.ProcessPayment)
 	cashierRoutes.Post("/refund/:id", cashierController.RefundPayment)
 	cashierRoutes.Get("/stats", cashierController.GetCashierStats)
+
+	// Обслуживание статичных файлов из папки frontend
+	app.Static("/", "./frontend")
+	app.Static("/shared", "./frontend/shared")
+	app.Static("/crm", "./frontend/crm")
+	app.Static("/deals", "./frontend/deals")
+
+	// Обработка маршрутов, которые не являются API (для поддержки SPA)
+	app.Get("/*", func(c *fiber.Ctx) error {
+		// Если это не API запрос, возвращаем index.html для обработки на клиенте
+		if len(c.Path()) >= 4 && c.Path()[:4] == "/api" {
+			return c.Next() // Пропускаем для API маршрутов
+		}
+		// Для всех остальных маршрутов возвращаем index.html
+		return c.SendFile("./frontend/index.html")
+	})
 
 	log.Fatal(app.Listen(":3000"))
 }
