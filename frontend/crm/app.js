@@ -2,11 +2,6 @@
 
 class KIT8CRM {
     constructor() {
-        // Загружаем API клиент как модуль
-        this.api = window.apiClient || null;
-        if (!this.api) {
-            console.error('API client not found. Please ensure shared/api.js is loaded.');
-        }
         this.currentContacts = [];
         this.init();
     }
@@ -14,6 +9,16 @@ class KIT8CRM {
     init() {
         this.bindEvents();
         this.loadContacts();
+    }
+
+    getApi() {
+        // Проверяем, доступен ли apiClient через window
+        if (window.apiClient) {
+            return window.apiClient;
+        } else {
+            console.error('API client not found. Please ensure shared/api.js is loaded.');
+            return null;
+        }
     }
 
     bindEvents() {
@@ -49,7 +54,7 @@ class KIT8CRM {
         `;
 
         try {
-            const data = await this.api.getContacts();
+            const data = await this.getApi().getContacts();
             
             if (data.success) {
                 this.currentContacts = data.data;
@@ -173,7 +178,7 @@ class KIT8CRM {
         button.disabled = true;
 
         try {
-            const data = await this.api.createContact({
+            const data = await this.getApi().createContact({
                 first_name: firstName,
                 last_name: lastName,
                 email: email,
@@ -206,7 +211,7 @@ class KIT8CRM {
 
     async loadStats() {
         try {
-            const data = await this.api.getCRMStats();
+            const data = await this.getApi().getCRMStats();
             
             if (data.success) {
                 document.getElementById('contacts-count').textContent = data.data.contacts;
@@ -299,7 +304,7 @@ class KIT8CRM {
         saveBtn.disabled = true;
 
         try {
-            const data = await this.api.updateContact(contactId, {
+            const data = await this.getApi().updateContact(contactId, {
                 first_name: firstName,
                 last_name: lastName,
                 email: email,
@@ -337,7 +342,7 @@ class KIT8CRM {
         }
 
         try {
-            const data = await this.api.deleteContact(contactId);
+            const data = await this.getApi().deleteContact(contactId);
 
             if (data.success) {
                 this.showEditMessage('Контакт успешно удален!', 'success');
@@ -361,7 +366,7 @@ class KIT8CRM {
         dealsContainer.innerHTML = '<p style="color: #6B7280; text-align: center;">Загрузка сделок...</p>';
 
         try {
-            const data = await this.api.getContactDeals(contactId);
+            const data = await this.getApi().getContactDeals(contactId);
 
             if (data.success && data.data.length > 0) {
                 let html = '<h4 style="margin-bottom: 15px; color: #4B5563;">Сделки контакта:</h4>';

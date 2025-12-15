@@ -275,4 +275,17 @@ class KIT8Header {
 }
 
 // Экспортируем класс для использования в других модулях
+if (typeof module !== 'undefined' && module.exports) {
+  // Node.js (не используется в браузере)
+  module.exports = KIT8Header;
+} else if (typeof window !== 'undefined') {
+  // Браузер - добавляем в глобальный объект
+  window.KIT8Header = KIT8Header;
+}
+// Для ES6 модулей
 export default KIT8Header;
+
+// Убедимся, что класс не дублируется в глобальном объекте
+if (typeof window !== 'undefined' && !window.hasOwnProperty('KIT8Header')) {
+  window.KIT8Header = KIT8Header;
+}

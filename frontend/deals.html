@@ -87,6 +87,11 @@
       headerScript.src = '/shared/components/Header.js';
       document.head.appendChild(headerScript);
       
+      // После загрузки Header.js создаем экземпляр
+      headerScript.onload = function() {
+        new window.KIT8Header('header-container');
+      };
+      
       const appScript = document.createElement('script');
       appScript.src = '/deals/app.js';
       document.head.appendChild(appScript);

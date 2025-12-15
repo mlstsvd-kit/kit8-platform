@@ -209,9 +209,21 @@
         </div>
     </div>
 
-    <script>
-        // Обновляем статистику при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
+    <script type="module">
+        import apiClient from '/shared/api.js';
+        window.apiClient = apiClient;
+        
+        // Загружаем Header.js как обычный скрипт
+        document.addEventListener('DOMContentLoaded', () => {
+            const headerScript = document.createElement('script');
+            headerScript.src = '/shared/components/Header.js';
+            document.head.appendChild(headerScript);
+            
+            // После загрузки Header.js создаем экземпляр
+            headerScript.onload = function() {
+                new window.KIT8Header('header-container');
+            };
+
             console.log('KIT8 Platform загружена');
             
             // Заглушка для обновления статистики

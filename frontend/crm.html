@@ -211,12 +211,21 @@
         import apiClient from '/shared/api.js';
         window.apiClient = apiClient;
         
-        // Ждем загрузки API клиента, затем загружаем основную логику
+        // Загружаем Header.js как обычный скрипт
         document.addEventListener('DOMContentLoaded', () => {
-            // Импортируем и инициализируем CRM приложение
-            const script = document.createElement('script');
-            script.src = '/crm/app.js';
-            document.head.appendChild(script);
+            const headerScript = document.createElement('script');
+            headerScript.src = '/shared/components/Header.js';
+            document.head.appendChild(headerScript);
+            
+            // После загрузки Header.js создаем экземпляр
+            headerScript.onload = function() {
+                new window.KIT8Header('header-container');
+            };
+
+            // Загружаем основную логику CRM
+            const crmScript = document.createElement('script');
+            crmScript.src = '/crm/app.js';
+            document.head.appendChild(crmScript);
         });
     </script>
 

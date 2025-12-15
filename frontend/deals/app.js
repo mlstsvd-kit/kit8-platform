@@ -1,6 +1,21 @@
 // Логика модуля Сделок
 
-document.addEventListener('DOMContentLoaded', () => {
+// Ждем, когда DOM будет полностью загружен и apiClient будет доступен
+document.addEventListener('DOMContentLoaded', async () => {
+  // Ждем доступности apiClient
+  const maxRetries = 20; // 20 попыток по 100мс = 2 секунды ожидания
+  let retries = 0;
+  while (!window.apiClient && retries < maxRetries) {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    retries++;
+  }
+
+  if (!window.apiClient) {
+    console.error('API client не загружен');
+    return;
+  }
+
+  const apiClient = window.apiClient;
   // Инициализируем шапку
   const header = new KIT8Header('header-container');
   
@@ -39,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stage = document.getElementById('deal-stage').value;
     
     try {
-      const newDeal = await apiClient.post('/crm/deals/', {
+      const newDeal = await window.apiClient.post('/crm/deals/', {
         title,
         contact_id: parseInt(contactId),
         value: parseFloat(value),
@@ -64,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Функция загрузки контактов для выпадающего списка
   async function loadContactsForSelect() {
     try {
-      const contacts = await apiClient.get('/crm/contacts');
+      const contacts = await window.apiClient.get('/crm/contacts');
       const contactSelect = document.getElementById('deal-contact');
       
       // Очищаем текущие опции
@@ -142,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Функция загрузки и отображения всех сделок
   async function loadDeals() {
     try {
-      const deals = await apiClient.get('/crm/deals');
+      const deals = await window.apiClient.get('/crm/deals');
       
       // Очищаем все доски
       document.querySelectorAll('.deals-list').forEach(list => {
