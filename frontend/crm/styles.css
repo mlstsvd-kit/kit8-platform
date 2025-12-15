@@ -1,0 +1,203 @@
+/* frontend/crm/styles.css */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 25px;
+}
+
+.contacts-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+.section-header h2 {
+    color: #1E3A8A;
+    font-size: 1.5rem;
+}
+
+.contacts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-card {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.contact-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #3B82F6;
+}
+
+.contact-avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 5px;
+}
+
+.contact-details {
+    display: flex;
+    gap: 20px;
+    color: #6B7280;
+    font-size: 0.9rem;
+}
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.contact-tags {
+    display: flex;
+    gap: 8px;
+}
+
+.tag {
+    background: #E0F2FE;
+    color: #0369A1;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.tag.new {
+    background: #DCFCE7;
+    color: #166534;
+}
+
+.tag.vip {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.add-contact-form {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.form-title {
+    color: #1E3A8A;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: #4B5563;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Стили для модального окна */
+#edit-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#edit-modal .modal-content {
+    background: white;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0.3);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
